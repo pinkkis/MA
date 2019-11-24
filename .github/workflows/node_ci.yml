@@ -14,7 +14,15 @@ jobs:
       CI: true
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - name: Check publish secret exists
+      run: |
+        if [ -z "${{secrets.PERSONAL_TOKEN}}" ]
+        then
+          echo "PERSONAL_TOKEN secret not present"
+          exit 1
+        fi
+    - name: Checkout
+      uses: actions/checkout@v1
     - name: Use Node.js 12.x
       uses: actions/setup-node@v1
       with:
