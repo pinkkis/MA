@@ -12,16 +12,24 @@ export const config = {
 		partials: path.normalize(path.join(srcDir, 'partials')),
 	},
 	assets: {
-		js: [
-			'./node_modules/jquery/dist/jquery.min.js',
-			'./node_modules/bootstrap/dist/js/bootstrap.min.js',
-			`${path.normalize(srcDir)}/scripts/**/*.js`,
-		],
-		css: [
-			'./node_modules/bootstrap/dist/css/bootstrap.min.css',
-			'./node_modules/bootstrap/dist/css/bootstrap.min.css.map',
-			`${path.normalize(srcDir)}/styles/**/*.css`
-		],
+		js: {
+			vendor: [
+				'./node_modules/jquery/dist/jquery.min.js',
+				'./node_modules/bootstrap/dist/js/bootstrap.min.js',
+			],
+			app: [
+				`${path.normalize(srcDir)}/scripts/**/*.js`,
+			]
+		},
+		css: {
+			vendor: [
+				'./node_modules/bootstrap/dist/css/bootstrap.min.css',
+			],
+			app: [
+				`${path.normalize(srcDir)}/styles/**/*.css`,
+				`!${path.normalize(srcDir)}/styles/**/test_*.*`
+			]
+		},
 		data: [
 			`${path.normalize(srcDir)}/data/**/*`
 		],
@@ -31,6 +39,12 @@ export const config = {
 		assets: [
 			`${path.normalize(srcDir)}/assets/**/*`
 		]
+	},
+	compile: {
+		js: [
+			`${path.normalize(srcDir)}/scripts/**/*.js`
+		],
+		prodJsFilename: 'app.es5.min.js'
 	},
 	dirs: {
 		src: path.normalize(srcDir),
